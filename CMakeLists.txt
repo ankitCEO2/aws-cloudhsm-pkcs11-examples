@@ -8,6 +8,14 @@ ELSE()
   SET(CMAKE_C_FLAGS "-Wall -Werror -Wno-pointer-sign -fno-signed-char -std=c99")
 ENDIF()
 
+# In case the user has provided the CLOUDHSM_PKCS11_VENDOR_DEFS_PATH as -D option to
+# cmake but the file does not exist or a wrong path or the file does not have the expected
+# definitions, the make itself will fail.
+
+IF (CLOUDHSM_PKCS11_VENDOR_DEFS_PATH)
+add_definitions(-DCLOUDHSM_PKCS11_VENDOR_DEFS_PATH="${CLOUDHSM_PKCS11_VENDOR_DEFS_PATH}")
+ENDIF()
+
 ENABLE_TESTING()
 
 include_directories(include/pkcs11/v2.40)
