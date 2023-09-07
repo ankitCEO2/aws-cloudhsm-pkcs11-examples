@@ -21,7 +21,11 @@
 #include <cryptoki.h>
 
 #ifndef CLOUDHSM_PKCS11_VENDOR_DEFS_PATH
+#ifdef _WIN32
+#define CLOUDHSM_PKCS11_VENDOR_DEFS_PATH "C:\\Program Files\\Amazon\\CloudHSM\\include\\pkcs11\\cloudhsm_pkcs11_vendor_defs.h"
+#else
 #define CLOUDHSM_PKCS11_VENDOR_DEFS_PATH "/opt/cloudhsm/include/pkcs11/cloudhsm_pkcs11_vendor_defs.h"
+#endif
 #endif
 #include CLOUDHSM_PKCS11_VENDOR_DEFS_PATH
 
