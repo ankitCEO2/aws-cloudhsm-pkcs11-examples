@@ -61,7 +61,9 @@ cmake .. -DHSM_USER=<user> -DHSM_PASSWORD=<password> -DTRUSTED_WRAPPING_KEY_HAND
 The CLOUDHSM_PKCS11_VENDOR_DEFS_PATH is an optional parameter containing the path to the directory which contains the 
 custom header file cloudhsm_pkcs11_vendor_defs.h.
 If the parameter is not specified, the pkcs11 header file installed along while installing the pkcs11 sdk will be used
-as default. For example on Linux the default path is /opt/cloudhsm/include/pkcs11.
+as default. The default path on Linux and Windows platforms are as following.
+Linux: /opt/cloudhsm/include/pkcs11.
+Windows: C:\Program Files\Amazon\CloudHSM\include\pkcs11
 
 Now you will be able to open and use `ALL_BUILD.vcxproj` to build, run, or edit
 the samples.
