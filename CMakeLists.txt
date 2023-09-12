@@ -8,13 +8,21 @@ ELSE()
   SET(CMAKE_C_FLAGS "-Wall -Werror -Wno-pointer-sign -fno-signed-char -std=c99")
 ENDIF()
 
-# In case the user has provided the CLOUDHSM_PKCS11_VENDOR_DEFS_PATH as -D option to
-# cmake but the file does not exist or a wrong path or the file does not have the expected
-# definitions, the make itself will fail.
+# If the file does not exist, a wrong path is provided, or the file does not
+# have the expected definitions, the make will fail when the user provides
+# CLOUDHSM_PKCS11_VENDOR_DEFS_PATH as -D option to cmake.
 
-IF (CLOUDHSM_PKCS11_VENDOR_DEFS_PATH)
-add_definitions(-DCLOUDHSM_PKCS11_VENDOR_DEFS_PATH="${CLOUDHSM_PKCS11_VENDOR_DEFS_PATH}")
+IF (NOT DEFINED CLOUDHSM_PKCS11_VENDOR_DEFS_PATH)
+  # The path to the custom pkcs11 header file contained in CLOUDHSM_PKCS11_VENDOR_DEFS_PATH is passed
+  # to the compiler which is used with -I option by the compiler and adds the directories to the
+  # search path.
+  IF (WIN32)
+    SET(CLOUDHSM_PKCS11_VENDOR_DEFS_PATH "C:\\Program Files\\Amazon\\CloudHSM\\include\\pkcs11")
+  ELSE()
+    SET(CLOUDHSM_PKCS11_VENDOR_DEFS_PATH /opt/cloudhsm/include/pkcs11)
+  ENDIF()
 ENDIF()
+include_directories(${CLOUDHSM_PKCS11_VENDOR_DEFS_PATH})
 
 ENABLE_TESTING()
 

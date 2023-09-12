@@ -56,8 +56,12 @@ TRUSTED_WRAPPING_KEY_HANDLE are optional for source build, but required for test
 ```
 mkdir build/
 cd build/
-cmake .. -DHSM_USER=<user> -DHSM_PASSWORD=<password> -DTRUSTED_WRAPPING_KEY_HANDLE=<trusted_key>
+cmake .. -DHSM_USER=<user> -DHSM_PASSWORD=<password> -DTRUSTED_WRAPPING_KEY_HANDLE=<trusted_key> -DCLOUDHSM_PKCS11_VENDOR_DEFS_PATH=<path_to_pkcs11_header_file>
 ```
+The CLOUDHSM_PKCS11_VENDOR_DEFS_PATH is an optional parameter containing the path to the directory which contains the 
+custom header file cloudhsm_pkcs11_vendor_defs.h.
+If the parameter is not specified, the pkcs11 header file installed along while installing the pkcs11 sdk will be used
+as default. For example on Linux the default path is /opt/cloudhsm/include/pkcs11.
 
 Now you will be able to open and use `ALL_BUILD.vcxproj` to build, run, or edit
 the samples.
